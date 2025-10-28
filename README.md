@@ -1,36 +1,183 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EchoVote - Transparent Feedback Democracy 📋
 
-## Getting Started
+A civic platform where every feedback submission is publicly trackable, like GitHub issues for governance. Built for Indian administrative bodies to provide transparency, accountability, and citizen empowerment.
 
-First, run the development server:
+## 🌟 Overview
 
+**Problem**: Public feedback systems are opaque — people's voices vanish into databases.
+
+**Solution**: EchoVote turns government feedback into transparent version-controlled issues, empowering citizens and building trust.
+
+## ✨ Key Features
+
+- **🔍 Complete Transparency**: Every complaint is publicly visible with real-time status updates
+- **📈 Hierarchical Escalation**: Issues automatically escalate from Panchayat → Block → District → State if unresolved
+- **🛡️ Anonymous Options**: Citizens can submit complaints anonymously while maintaining issue transparency
+- **👥 Community Support**: Other citizens can upvote similar issues and add supportive comments
+- **📊 Performance Metrics**: Public dashboards showing response times and department performance
+- **✅ Verified Resolution**: Citizens and officials can verify that issues are actually resolved
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 14+ with App Router, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **Database**: MongoDB with Docker (replica set for high availability)
+- **Authentication**: JWT-based with separate user types (Citizens, Government Officers, Admin)
+- **UI Components**: Radix UI with custom Tailwind styling
+- **Deployment**: Docker containerization
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+ 
+- Docker and Docker Compose
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd echovote
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.local.example .env.local
+   # Edit .env.local with your configuration
+   ```
+
+4. **Start MongoDB with Docker**
+   ```bash
+   npm run docker:up
+   ```
+
+5. **Seed the database with Indian administrative data**
+   ```bash
+   npm run seed
+   ```
+
+6. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+7. **Open your browser**
+   Visit [http://localhost:3000](http://localhost:3000)
+
+### One-Command Setup
+
+For a complete setup including Docker and database seeding:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run setup
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🏗️ Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Authentication System
+- **Citizens**: Can submit anonymous or identified complaints
+- **Government Officers**: Role-based access to assigned jurisdictions
+- **Admin**: Full system access and user verification
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Complaint Lifecycle
+1. **Submission**: Citizen posts issue with location details
+2. **Assignment**: Automatically routed to appropriate administrative division
+3. **Tracking**: Public status updates (submitted → acknowledged → in_progress → resolved)
+4. **Escalation**: Auto-escalates if not resolved within SLA
+5. **Resolution**: Verified by both officials and citizens
 
-## Learn More
+## 🐳 Docker Configuration
 
-To learn more about Next.js, take a look at the following resources:
+The project includes a complete Docker setup with MongoDB replica set:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Start all services
+npm run docker:up
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# View logs  
+npm run docker:logs
 
-## Deploy on Vercel
+# Stop services
+npm run docker:down
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🌍 Indian Administrative Data
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The platform includes comprehensive data for:
+
+- **28 States + 8 Union Territories**
+- **700+ Districts** 
+- **Sample Blocks and Panchayats**
+- **8 Common Government Departments** with categories and subcategories
+
+## 📱 User Types & Dashboards
+
+### Citizen Dashboard
+- Submit complaints (anonymous or identified)
+- Track complaint status
+- Browse public issues
+- Support community complaints
+
+### Government Officer Dashboard
+- View assigned complaints
+- Update complaint status
+- Escalate to higher authorities
+- Performance analytics
+
+### Admin Dashboard
+- Verify government officers
+- System analytics
+- User management
+
+## 🔒 Security Features
+
+- **User Anonymity**: Protected anonymous submission system
+- **Role-based Access Control**: Proper permission management
+- **Data Sanitization**: All inputs are validated and sanitized
+- **JWT Authentication**: Secure token-based authentication
+
+## 📈 Transparency Features
+
+- **Public Complaint Tracking**: GitHub-style issue tracking
+- **Status History**: Complete audit trail of all actions
+- **Performance Metrics**: Department-wise statistics
+- **Escalation Tracking**: Clear escalation paths and timelines
+- **Community Engagement**: Public support and commenting
+
+## 📝 Environment Variables
+
+```env
+# Database
+MONGODB_URI=mongodb://admin:password@localhost:27017,localhost:27018,localhost:27019/echovote?replicaSet=rs0&authSource=admin
+
+# Authentication
+NEXTAUTH_SECRET=your_secret_here
+NEXTAUTH_URL=http://localhost:3000
+JWT_SECRET=your_jwt_secret_here
+
+# Application
+NODE_ENV=development
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Key areas:
+
+- Follow TypeScript best practices
+- Maintain user anonymity and data privacy
+- Follow Indian administrative hierarchy structure
+- Write tests for new features
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+**EchoVote** - Building transparency in governance, one complaint at a time. 🇮🇳
