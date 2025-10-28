@@ -8,7 +8,7 @@ import { verifyToken } from '@/lib/auth';
 export async function GET(req: NextRequest) {
     try {
         await dbConnect();
-        
+
         // Ensure AdministrativeDivision model is registered
         AdministrativeDivision;
 

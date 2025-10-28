@@ -57,14 +57,14 @@ export async function POST(
 
         // District officers can only notify during work progress (not after resolved)
         if (isDistrictOfficer && !isAssigned) {
-            return NextResponse.json({ 
-                error: 'This complaint is not assigned to you' 
+            return NextResponse.json({
+                error: 'This complaint is not assigned to you'
             }, { status: 403 });
         }
 
         if (isDistrictOfficer && complaint.status === ComplaintStatus.RESOLVED) {
-            return NextResponse.json({ 
-                error: 'District officers cannot send notifications after complaint is resolved. Wait for state officer verification.' 
+            return NextResponse.json({
+                error: 'District officers cannot send notifications after complaint is resolved. Wait for state officer verification.'
             }, { status: 403 });
         }
 
@@ -73,8 +73,8 @@ export async function POST(
 
         // State officers can notify at any stage, but primarily after verification
         if (isStateOfficer && complaint.status !== ComplaintStatus.RESOLVED && complaint.status !== ComplaintStatus.CLOSED) {
-            return NextResponse.json({ 
-                error: 'State officers should notify citizens after verifying and closing complaints' 
+            return NextResponse.json({
+                error: 'State officers should notify citizens after verifying and closing complaints'
             }, { status: 403 });
         }
 

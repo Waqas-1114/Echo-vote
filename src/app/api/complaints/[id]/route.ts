@@ -8,7 +8,7 @@ import { verifyToken } from '@/lib/auth';
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         await dbConnect();
-        
+
         // Ensure models are registered
         AdministrativeDivision;
         User;
@@ -29,7 +29,11 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
         const complaint = await Complaint.findById(id)
             .populate('assignedTo.division', 'name level')
-            .populate('assignedTo.officers', 'profile.name governmentDetails.designation');
+            .populate('assignedTo.officers', 'profile.name governmentDetails.designation governmentDetails.employeeId governmentDetails.department profile.phone')
+            .populate('statusHistory.updatedBy', 'profile.name governmentDetails.designation')
+            .populate('proofOfWork.submittedBy', 'profile.name governmentDetails.designation')
+            .populate('resolution.resolvedBy', 'profile.name governmentDetails.designation')
+            .populate('resolution.verifiedBy', 'profile.name governmentDetails.designation');
 
         if (!complaint) {
             return NextResponse.json(
@@ -70,6 +74,15 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
             createdAt: complaint.createdAt,
             updatedAt: complaint.updatedAt,
             isOwner,
+            // Additional details for owners and officers
+            ...(isOwner || isGovernmentOfficer ? {
+                proofOfWork: complaint.proofOfWork,
+                resolution: complaint.resolution,
+                assignedAt: complaint.assignedTo.assignedAt,
+                deadline: complaint.assignedTo.deadline,
+                escalationHistory: complaint.escalationHistory,
+                attachments: complaint.attachments
+            } : {})
         };
 
         return NextResponse.json({

@@ -9,7 +9,7 @@ import { AdminLevel } from '@/models/interfaces';
 export async function GET(req: NextRequest) {
     try {
         await dbConnect();
-        
+
         // Ensure AdministrativeDivision model is registered
         AdministrativeDivision;
 

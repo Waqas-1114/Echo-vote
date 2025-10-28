@@ -7,7 +7,7 @@ import { verifyPassword, generateToken } from '@/lib/auth';
 export async function POST(req: NextRequest) {
     try {
         await dbConnect();
-        
+
         // Ensure AdministrativeDivision model is registered
         AdministrativeDivision;
 

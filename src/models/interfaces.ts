@@ -198,6 +198,14 @@ export interface IComplaint extends Document {
 
     resolvedAt?: Date;
 
+    // Citizen feedback (for closed complaints)
+    feedback?: {
+        rating: number; // 1-5 stars
+        comments?: string;
+        categories?: string[]; // e.g., "Timely Response", "Quality Work"
+        submittedAt: Date;
+    };
+
     // Metadata
     isPublic: boolean;
     tags: string[];

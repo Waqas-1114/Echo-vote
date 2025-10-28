@@ -34,8 +34,8 @@ export async function POST(
         // Get state officer details
         const stateOfficer = await User.findById(user.userId);
         if (!stateOfficer || stateOfficer.governmentDetails.adminLevel !== AdminLevel.STATE) {
-            return NextResponse.json({ 
-                error: 'Only state level officers can verify and close complaints' 
+            return NextResponse.json({
+                error: 'Only state level officers can verify and close complaints'
             }, { status: 403 });
         }
 
@@ -47,8 +47,8 @@ export async function POST(
 
         // Check if complaint is resolved
         if (complaint.status !== ComplaintStatus.RESOLVED) {
-            return NextResponse.json({ 
-                error: 'Only resolved complaints can be verified and closed' 
+            return NextResponse.json({
+                error: 'Only resolved complaints can be verified and closed'
             }, { status: 400 });
         }
 

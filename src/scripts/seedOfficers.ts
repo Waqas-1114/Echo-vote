@@ -740,12 +740,24 @@ export async function seedOfficersAndComplaints() {
             console.log(`✓ Created officer: ${officer.profile.name} (${officer.governmentDetails.designation})`);
         }
 
-        // Create some citizens for complaints
+        // Create citizens for complaints
         console.log('\n=== Creating Citizens ===');
         const citizenData = [
-            { email: 'citizen1@test.com', name: 'Ramesh Gupta', state: 'Maharashtra', district: 'Mumbai' },
-            { email: 'citizen2@test.com', name: 'Sunita Rao', state: 'Maharashtra', district: 'Pune' },
-            { email: 'citizen3@test.com', name: 'Anil Mehta', state: 'Maharashtra', district: 'Mumbai' }
+            { email: 'ramesh.gupta@gmail.com', name: 'Ramesh Gupta', phone: '+91-9876543220', state: 'Maharashtra', district: 'Mumbai', block: 'Andheri' },
+            { email: 'sunita.rao@gmail.com', name: 'Sunita Rao', phone: '+91-9876543221', state: 'Maharashtra', district: 'Pune', block: 'Kothrud' },
+            { email: 'anil.mehta@gmail.com', name: 'Anil Mehta', phone: '+91-9876543222', state: 'Maharashtra', district: 'Mumbai', block: 'Bandra' },
+            { email: 'priya.desai@gmail.com', name: 'Priya Desai', phone: '+91-9876543223', state: 'Maharashtra', district: 'Mumbai', block: 'Borivali' },
+            { email: 'rajesh.sharma@gmail.com', name: 'Rajesh Sharma', phone: '+91-9876543224', state: 'Maharashtra', district: 'Pune', block: 'Kothrud' },
+            { email: 'meera.iyer@gmail.com', name: 'Meera Iyer', phone: '+91-9876543225', state: 'Maharashtra', district: 'Mumbai', block: 'Andheri' },
+            { email: 'vikram.patel@gmail.com', name: 'Vikram Patel', phone: '+91-9876543226', state: 'Maharashtra', district: 'Mumbai', block: 'Bandra' },
+            { email: 'anjali.reddy@gmail.com', name: 'Anjali Reddy', phone: '+91-9876543227', state: 'Maharashtra', district: 'Nagpur' },
+            { email: 'suresh.kumar@gmail.com', name: 'Suresh Kumar', phone: '+91-9876543228', state: 'Maharashtra', district: 'Nashik' },
+            { email: 'kavita.singh@gmail.com', name: 'Kavita Singh', phone: '+91-9876543229', state: 'Maharashtra', district: 'Thane' },
+            { email: 'deepak.joshi@gmail.com', name: 'Deepak Joshi', phone: '+91-9876543230', state: 'Maharashtra', district: 'Mumbai', block: 'Borivali' },
+            { email: 'neha.verma@gmail.com', name: 'Neha Verma', phone: '+91-9876543231', state: 'Maharashtra', district: 'Pune' },
+            { email: 'amit.kulkarni@gmail.com', name: 'Amit Kulkarni', phone: '+91-9876543232', state: 'Maharashtra', district: 'Mumbai', block: 'Andheri' },
+            { email: 'pooja.nair@gmail.com', name: 'Pooja Nair', phone: '+91-9876543233', state: 'Maharashtra', district: 'Mumbai', block: 'Bandra' },
+            { email: 'rahul.deshmukh@gmail.com', name: 'Rahul Deshmukh', phone: '+91-9876543234', state: 'Maharashtra', district: 'Thane' }
         ];
         const citizens = [];
 
@@ -760,29 +772,50 @@ export async function seedOfficersAndComplaints() {
                     userType: UserType.CITIZEN,
                     profile: {
                         name: data.name,
-                        phone: `+91-98765432${20 + i}`,
+                        phone: data.phone,
                         address: {
                             state: data.state,
-                            district: data.district
+                            district: data.district,
+                            block: data.block || undefined,
+                            pincode: '400001'
                         }
                     },
                     isActive: true,
                     isAnonymous: false
                 });
-                console.log(`✓ Created citizen: ${citizen.email}`);
+                console.log(`✓ Created citizen: ${citizen.profile.name} (${citizen.email})`);
+            } else {
+                console.log(`Citizen ${data.name} already exists`);
             }
             citizens.push(citizen);
         }
 
         // Create complaints and assign to officers
         console.log('\n=== Creating Complaints ===');
-        
+
         // Find Amit Patel (Mumbai District Officer) to assign most complaints to him
         const amitPatel = createdOfficers.find(o => o.email === 'amit.patel@gov.in');
-        
+
         for (let i = 0; i < complaintSeedData.length; i++) {
             const complaintData = complaintSeedData[i];
-            const citizen = citizens[i % citizens.length];
+            
+            // Find a citizen from the same district as the complaint
+            let citizen = citizens.find(c => 
+                c.profile.address.district === complaintData.location.district &&
+                c.profile.address.block === complaintData.location.block
+            );
+            
+            // If no exact match, find by district only
+            if (!citizen) {
+                citizen = citizens.find(c => 
+                    c.profile.address.district === complaintData.location.district
+                );
+            }
+            
+            // If still no match, use round-robin assignment
+            if (!citizen) {
+                citizen = citizens[i % citizens.length];
+            }
 
             // Find appropriate jurisdiction
             let jurisdiction = await AdministrativeDivision.findOne({
@@ -802,10 +835,10 @@ export async function seedOfficersAndComplaints() {
 
             // Assign officer based on location and department
             let assignedOfficer = null;
-            
+
             // If complaint is from Mumbai and PWD department, assign to Amit Patel
-            if (complaintData.location.district === 'Mumbai' && 
-                complaintData.department === 'Public Works Department' && 
+            if (complaintData.location.district === 'Mumbai' &&
+                complaintData.department === 'Public Works Department' &&
                 amitPatel) {
                 assignedOfficer = amitPatel;
             } else {
@@ -927,6 +960,7 @@ export async function seedOfficersAndComplaints() {
             }
 
             console.log(`✓ Created complaint: ${complaint.ticketNumber} - ${complaint.title.substring(0, 40)}...`);
+            console.log(`  Filed by: ${citizen.profile.name} (${citizen.email})`);
             if (assignedOfficer) {
                 console.log(`  Assigned to: ${assignedOfficer.profile.name} (${assignedOfficer.governmentDetails.designation})`);
             }
@@ -938,10 +972,21 @@ export async function seedOfficersAndComplaints() {
         console.log(`Complaints created: ${complaintSeedData.length}`);
 
         console.log('\n=== Login Credentials ===');
-        console.log('All officers: password = Officer@123');
-        console.log('Sample officer emails:');
-        officerSeedData.slice(0, 5).forEach(o => {
+        console.log('\n📋 OFFICER ACCOUNTS:');
+        console.log('Password for all officers: Officer@123');
+        console.log('\nState Level Officers:');
+        officerSeedData.filter(o => o.governmentDetails.adminLevel === AdminLevel.STATE).forEach(o => {
             console.log(`  - ${o.email} (${o.profile.name} - ${o.governmentDetails.designation})`);
+        });
+        console.log('\nDistrict Level Officers:');
+        officerSeedData.filter(o => o.governmentDetails.adminLevel === AdminLevel.DISTRICT).slice(0, 5).forEach(o => {
+            console.log(`  - ${o.email} (${o.profile.name} - ${o.governmentDetails.designation})`);
+        });
+
+        console.log('\n👥 CITIZEN ACCOUNTS:');
+        console.log('Password for all citizens: Citizen@123');
+        citizenData.forEach(c => {
+            console.log(`  - ${c.email} (${c.name} - ${c.district}${c.block ? ', ' + c.block : ''})`);
         });
 
         return {

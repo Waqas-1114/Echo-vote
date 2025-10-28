@@ -43,18 +43,18 @@ export async function POST(
     if (!complaint.assignedTo.officers) {
       complaint.assignedTo.officers = [];
     }
-    
+
     if (!complaint.assignedTo.officers.includes(decoded.userId)) {
       complaint.assignedTo.officers.push(decoded.userId);
     }
-    
+
     complaint.status = 'in_progress';
     await complaint.save();
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       message: 'Complaint assigned successfully',
-      complaint 
+      complaint
     });
   } catch (error) {
     console.error('Error assigning complaint:', error);

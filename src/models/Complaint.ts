@@ -132,6 +132,15 @@ const complaintSchema = new Schema<IComplaint>({
         },
         verifiedAt: Date,
     },
+    feedback: {
+        rating: {
+            type: Number,
+            min: 1,
+            max: 5,
+        },
+        comments: String,
+        submittedAt: Date,
+    },
     resolvedAt: Date,
     isPublic: { type: Boolean, default: true },
     tags: [String],

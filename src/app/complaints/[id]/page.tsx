@@ -1,16 +1,18 @@
 import ComplaintDetail from '@/components/ComplaintDetail';
 
 interface ComplaintDetailPageProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
-export default function ComplaintDetailPage({ params }: ComplaintDetailPageProps) {
+export default async function ComplaintDetailPage({ params }: ComplaintDetailPageProps) {
+    const { id } = await params;
+    
     return (
         <div className="min-h-screen bg-gray-50">
             <div className="max-w-6xl mx-auto px-4 py-8">
-                <ComplaintDetail complaintId={params.id} />
+                <ComplaintDetail complaintId={id} />
             </div>
         </div>
     );

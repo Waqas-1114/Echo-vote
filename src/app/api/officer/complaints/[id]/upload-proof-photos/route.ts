@@ -25,9 +25,9 @@ export async function POST(
 
         const { id } = await params;
         const formData = await req.formData();
-        
+
         const files = formData.getAll('photos') as File[];
-        
+
         if (!files || files.length === 0) {
             return NextResponse.json({ error: 'No files uploaded' }, { status: 400 });
         }

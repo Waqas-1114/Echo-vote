@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   try {
     // Ensure AdministrativeDivision model is registered
     AdministrativeDivision;
-    
+
     const authHeader = request.headers.get('authorization');
     const token = authHeader?.replace('Bearer ', '');
 

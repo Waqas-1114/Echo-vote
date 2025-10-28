@@ -564,7 +564,7 @@ export default function StateOfficerDashboard() {
                                         📢 Notify citizen upon closure
                                     </label>
                                 </div>
-                                
+
                                 {notifyCitizen && (
                                     <div>
                                         <label className="block text-sm font-medium mb-2 text-gray-700">

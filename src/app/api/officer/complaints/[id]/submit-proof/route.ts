@@ -30,8 +30,8 @@ export async function POST(
         }
 
         if (markAsResolved && (!photosUrls || photosUrls.length === 0)) {
-            return NextResponse.json({ 
-                error: 'At least one proof photo is required to mark complaint as resolved' 
+            return NextResponse.json({
+                error: 'At least one proof photo is required to mark complaint as resolved'
             }, { status: 400 });
         }
 
@@ -76,7 +76,7 @@ export async function POST(
         if (markAsResolved) {
             // Check if work was completed before deadline (if any)
             const isBeforeDeadline = !complaint.dueDate || new Date() <= complaint.dueDate;
-            const deadlineStatus = complaint.dueDate 
+            const deadlineStatus = complaint.dueDate
                 ? (isBeforeDeadline ? ' (completed before deadline)' : ' (completed after deadline)')
                 : '';
 
@@ -104,7 +104,7 @@ export async function POST(
             if (estimatedCompletionDate) {
                 complaint.dueDate = new Date(estimatedCompletionDate);
             }
-            
+
             complaint.statusHistory.push({
                 status: complaint.status,
                 updatedBy: user.userId,
@@ -116,7 +116,7 @@ export async function POST(
         await complaint.save();
 
         return NextResponse.json({
-            message: markAsResolved 
+            message: markAsResolved
                 ? 'Complaint marked as resolved and submitted for verification'
                 : 'Proof of work submitted successfully',
             complaint: {
