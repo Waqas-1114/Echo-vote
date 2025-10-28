@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import { Complaint } from '@/models/Complaint';
+import { AdministrativeDivision } from '@/models/AdministrativeDivision';
+import { User } from '@/models/User';
 import { verifyToken } from '@/lib/auth';
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         await dbConnect();
+        
+        // Ensure models are registered
+        AdministrativeDivision;
+        User;
 
         // Get and verify token
         const authHeader = req.headers.get('authorization');
@@ -19,7 +25,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
             return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
         }
 
-        const complaint = await Complaint.findById(params.id)
+        const { id } = await params;
+
+        const complaint = await Complaint.findById(id)
             .populate('assignedTo.division', 'name level')
             .populate('assignedTo.officers', 'profile.name governmentDetails.designation');
 

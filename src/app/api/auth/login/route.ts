@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import { User } from '@/models/User';
+import { AdministrativeDivision } from '@/models/AdministrativeDivision';
 import { verifyPassword, generateToken } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
     try {
         await dbConnect();
+        
+        // Ensure AdministrativeDivision model is registered
+        AdministrativeDivision;
 
         const { email, password } = await req.json();
 

@@ -167,6 +167,15 @@ export interface IComplaint extends Document {
         uploadedAt: Date;
     }>;
 
+    // Proof of work submitted by officers
+    proofOfWork?: Array<{
+        description: string;
+        workDetails: string;
+        photos?: string[];
+        submittedBy: mongoose.Types.ObjectId;
+        submittedAt: Date;
+    }>;
+
     // Public engagement
     publicSupport: {
         upvotes: number;
@@ -186,6 +195,8 @@ export interface IComplaint extends Document {
         verifiedBy?: mongoose.Types.ObjectId;
         verifiedAt?: Date;
     };
+
+    resolvedAt?: Date;
 
     // Metadata
     isPublic: boolean;

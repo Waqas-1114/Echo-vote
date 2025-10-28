@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import { User } from "@/models/User";
+import { AdministrativeDivision } from "@/models/AdministrativeDivision";
 import { verifyToken } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
+    // Ensure AdministrativeDivision model is registered
+    AdministrativeDivision;
+    
     const authHeader = request.headers.get('authorization');
     const token = authHeader?.replace('Bearer ', '');
 
@@ -28,7 +32,7 @@ export async function GET(request: NextRequest) {
     const user = await User.findById(decoded.userId)
       .select('-password')
       .populate('governmentDetails.jurisdiction')
-      .lean();
+      .lean() as any;
 
     if (!user) {
       return NextResponse.json(
@@ -37,7 +41,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       success: true,
       id: user._id,
       email: user.email,

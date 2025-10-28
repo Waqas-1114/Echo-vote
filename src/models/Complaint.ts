@@ -108,6 +108,16 @@ const complaintSchema = new Schema<IComplaint>({
             submittedAt: { type: Date, default: Date.now },
         }],
     },
+    proofOfWork: [{
+        description: String,
+        workDetails: String,
+        photos: [String],
+        submittedBy: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+        },
+        submittedAt: { type: Date, default: Date.now },
+    }],
     resolution: {
         description: String,
         resolvedBy: {
@@ -122,6 +132,7 @@ const complaintSchema = new Schema<IComplaint>({
         },
         verifiedAt: Date,
     },
+    resolvedAt: Date,
     isPublic: { type: Boolean, default: true },
     tags: [String],
     dueDate: Date,

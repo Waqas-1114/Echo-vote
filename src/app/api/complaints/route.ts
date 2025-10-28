@@ -77,14 +77,30 @@ export const POST = withAuth(async (req: AuthenticatedRequest) => {
         // Set default department based on category if not provided
         const defaultDepartment = department || 'General Administration';
 
-        // Find appropriate jurisdiction
-        const jurisdiction = await findAppropriateJurisdiction(location);
-        if (!jurisdiction) {
+        // Find STATE level jurisdiction (complaints always go to state first)
+        const stateJurisdiction = await AdministrativeDivision.findOne({
+            state: location.state,
+            level: AdminLevel.STATE,
+            isActive: true
+        });
+
+        if (!stateJurisdiction) {
             return NextResponse.json(
-                { error: 'Could not determine appropriate administrative jurisdiction' },
+                { error: 'Could not find state jurisdiction' },
                 { status: 400 }
             );
         }
+
+        // Find STATE level officer of the appropriate department
+        const User = (await import('@/models/User')).User;
+        const stateOfficer = await User.findOne({
+            'governmentDetails.adminLevel': AdminLevel.STATE,
+            'governmentDetails.department': defaultDepartment,
+            'governmentDetails.jurisdiction': stateJurisdiction._id,
+            'governmentDetails.isVerified': true,
+            userType: 'government_officer',
+            isActive: true
+        });
 
         // Generate unique ticket number
         const ticketNumber = generateTicketNumber(location.state, location.district);
@@ -109,9 +125,9 @@ export const POST = withAuth(async (req: AuthenticatedRequest) => {
                 coordinates: location.coordinates,
             },
             assignedTo: {
-                division: jurisdiction._id,
-                department,
-                officers: [], // Will be assigned later by admin
+                division: stateJurisdiction._id,
+                department: defaultDepartment,
+                officers: stateOfficer ? [stateOfficer._id] : [], // Automatically assign to state officer
             },
             statusHistory: [{
                 status: ComplaintStatus.SUBMITTED,

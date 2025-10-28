@@ -5,7 +5,7 @@ import { verifyToken } from "@/lib/auth";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const authHeader = request.headers.get('authorization');
@@ -28,7 +28,9 @@ export async function POST(
 
     await dbConnect();
 
-    const complaint = await Complaint.findById(params.id);
+    const { id } = await params;
+
+    const complaint = await Complaint.findById(id);
 
     if (!complaint) {
       return NextResponse.json(
