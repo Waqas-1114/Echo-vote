@@ -81,7 +81,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
                 assignedAt: complaint.assignedTo.assignedAt,
                 deadline: complaint.assignedTo.deadline,
                 escalationHistory: complaint.escalationHistory,
-                attachments: complaint.attachments
+                attachments: complaint.attachments,
+                feedback: complaint.feedback
             } : {})
         };
 

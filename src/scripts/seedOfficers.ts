@@ -798,20 +798,20 @@ export async function seedOfficersAndComplaints() {
 
         for (let i = 0; i < complaintSeedData.length; i++) {
             const complaintData = complaintSeedData[i];
-            
+
             // Find a citizen from the same district as the complaint
-            let citizen = citizens.find(c => 
+            let citizen = citizens.find(c =>
                 c.profile.address.district === complaintData.location.district &&
                 c.profile.address.block === complaintData.location.block
             );
-            
+
             // If no exact match, find by district only
             if (!citizen) {
-                citizen = citizens.find(c => 
+                citizen = citizens.find(c =>
                     c.profile.address.district === complaintData.location.district
                 );
             }
-            
+
             // If still no match, use round-robin assignment
             if (!citizen) {
                 citizen = citizens[i % citizens.length];
