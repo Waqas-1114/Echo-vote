@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { LogOut } from 'lucide-react';
 import { ComplaintStatus } from '@/models/interfaces';
 
 interface Officer {
@@ -31,6 +32,7 @@ interface ComplaintData {
 }
 
 interface Stats {
+  total: number;
   assigned: number;
   pending: number;
   inProgress: number;
@@ -42,8 +44,17 @@ export default function OfficerDashboard() {
   const [officer, setOfficer] = useState<Officer | null>(null);
   const [assignedComplaints, setAssignedComplaints] = useState<ComplaintData[]>([]);
   const [jurisdictionComplaints, setJurisdictionComplaints] = useState<ComplaintData[]>([]);
-  const [stats, setStats] = useState<Stats>({ assigned: 0, pending: 0, inProgress: 0, resolved: 0 });
+  const [stats, setStats] = useState<Stats>({ total: 0, assigned: 0, pending: 0, inProgress: 0, resolved: 0 });
   const [loading, setLoading] = useState(true);
+
+  const handleLogout = () => {
+    // Clear authentication data
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // Redirect to login page
+    router.push('/auth/login');
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,6 +99,10 @@ export default function OfficerDashboard() {
           });
         }
 
+        let assignedData: ComplaintData[] = [];
+        let jurisdictionData: ComplaintData[] = [];
+        let statsData = { assigned: 0, pending: 0, inProgress: 0, resolved: 0 };
+
         // Fetch assigned complaints
         const assignedRes = await fetch('/api/complaints/assigned', {
           headers: { 'Authorization': `Bearer ${token}` }
@@ -95,8 +110,9 @@ export default function OfficerDashboard() {
         
         if (assignedRes.ok) {
           const data = await assignedRes.json();
-          setAssignedComplaints(data.complaints || []);
-          setStats(data.stats || { assigned: 0, pending: 0, inProgress: 0, resolved: 0 });
+          assignedData = data.complaints || [];
+          setAssignedComplaints(assignedData);
+          statsData = data.stats || { assigned: 0, pending: 0, inProgress: 0, resolved: 0 };
         }
 
         // Fetch jurisdiction complaints
@@ -106,8 +122,22 @@ export default function OfficerDashboard() {
         
         if (jurisdictionRes.ok) {
           const data = await jurisdictionRes.json();
-          setJurisdictionComplaints(data.complaints || []);
+          jurisdictionData = data.complaints || [];
+          setJurisdictionComplaints(jurisdictionData);
         }
+
+        // Calculate total from BOTH assigned and jurisdiction complaints
+        const totalComplaints = assignedData.length + jurisdictionData.length;
+        console.log('Total Complaints Calculation:', {
+          assigned: assignedData.length,
+          jurisdiction: jurisdictionData.length,
+          total: totalComplaints
+        });
+        
+        setStats({
+          total: totalComplaints,
+          ...statsData
+        });
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -134,21 +164,44 @@ export default function OfficerDashboard() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Officer Dashboard</h1>
-        <p className="text-gray-600">
-          Welcome, {officer.name || officer.email}
-        </p>
-        <p className="text-sm text-gray-500">
-          Employee ID: {officer.employeeId} | Department: {officer.department || 'Not specified'}
-        </p>
-        <p className="text-sm text-gray-500">
-          Jurisdiction: {officer.district}, {officer.state}
-        </p>
+      <div className="mb-8 flex justify-between items-start">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">Officer Dashboard</h1>
+          <p className="text-gray-600">
+            Welcome, {officer.name || officer.email}
+          </p>
+          <p className="text-sm text-gray-500">
+            Employee ID: {officer.employeeId} | Department: {officer.department || 'Not specified'}
+          </p>
+          <p className="text-sm text-gray-500">
+            Jurisdiction: {officer.district}, {officer.state}
+          </p>
+        </div>
+        
+        {/* Logout Button */}
+        <Button 
+          onClick={handleLogout}
+          variant="outline"
+          className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-300"
+        >
+          <LogOut className="w-4 h-4 mr-2" />
+          Logout
+        </Button>
       </div>
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-gray-600">
+              Total Complaints
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-purple-600">{stats.total}</div>
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
