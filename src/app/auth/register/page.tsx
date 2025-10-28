@@ -57,7 +57,7 @@ function RegisterForm() {
             state => state.name === formData.profile.address.state
         );
         return selectedStateData?.districts || [];
-    }, [formData.profile.address.state]);
+    }, [formData.profile.address.state, statesAndUTs]);
 
     // Handle state change - reset district when state changes
     const handleStateChange = (stateName: string) => {
