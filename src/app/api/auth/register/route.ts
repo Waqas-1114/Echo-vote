@@ -49,8 +49,6 @@ export async function POST(req: NextRequest) {
                 employeeId: governmentDetails.employeeId,
                 department: governmentDetails.department,
                 designation: governmentDetails.designation,
-                adminLevel: governmentDetails.adminLevel,
-                jurisdiction: governmentDetails.jurisdiction,
                 isVerified: false, // Requires admin verification
                 verificationDocuments: governmentDetails.verificationDocuments || [],
             };

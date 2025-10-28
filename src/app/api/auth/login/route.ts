@@ -45,12 +45,12 @@ export async function POST(req: NextRequest) {
         }
 
         // Check government officer verification status
-        if (user.userType === 'government_officer' && user.governmentDetails && !user.governmentDetails.isVerified) {
+        /*if (user.userType === 'government_officer' && user.governmentDetails && !user.governmentDetails.isVerified) {
             return NextResponse.json(
                 { error: 'Your account is pending verification. Please wait for admin approval.' },
                 { status: 403 }
             );
-        }
+        }*/
 
         // Generate JWT token
         const token = generateToken({
