@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
     }
 }
 
-// Get hierarchy for a specific location
+// Get hierarchy for a specific locations
 export async function POST(req: NextRequest) {
     try {
         await dbConnect();

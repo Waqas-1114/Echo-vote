@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-
+// @ts-ignore
 const nextConfig: NextConfig = {
   output: 'standalone',
   serverExternalPackages: ['mongoose'],

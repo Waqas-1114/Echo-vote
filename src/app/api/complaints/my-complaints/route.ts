@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     try {
         await dbConnect();
 
-        // Get token from Authorization header
+        // Get tokens from Authorization header
         const authorization = req.headers.get('authorization');
         if (!authorization || !authorization.startsWith('Bearer ')) {
             return NextResponse.json(
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
             );
         }
 
-        // Find complaints for this user
+        // Find complaints for a user
         let complaints;
         if (payload.isAnonymous && payload.userId) {
             // For anonymous users, find by anonymousId

@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Fetch complaints in officer's jurisdiction that are not fully assigned
+    // Fetching complaints in officer's jurisdiction that are not fully assigned
     const complaints = await Complaint.find({
       'location.state': officer.profile.address.state,
       'location.district': officer.profile.address.district,

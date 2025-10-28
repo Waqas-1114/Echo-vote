@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bashed
 
 echo "Waiting for MongoDB instances to start..."
 sleep 30

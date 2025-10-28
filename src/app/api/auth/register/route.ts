@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
         const { email, password, userType, profile, governmentDetails } = await req.json();
 
-        // Validation
+        // Validationa
         if (!email || !password) {
             return NextResponse.json(
                 { error: 'Email and password are required' },
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Check if user already exists
+        // Check if user already exists or not
         const existingUser = await User.findOne({ email: email.toLowerCase() });
         if (existingUser) {
             return NextResponse.json(

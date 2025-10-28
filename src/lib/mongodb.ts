@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+// It's recommended to set MONGODB_URI in environment variables for security
 const MONGODB_URI = process.env.MONGODB_URI!;
 
 if (!MONGODB_URI) {

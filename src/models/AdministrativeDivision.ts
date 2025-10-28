@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { IAdministrativeDivision, AdminLevel } from './interfaces';
-
+// Schema definition for Administrative Division
 const administrativeDivisionSchema = new Schema<IAdministrativeDivision>({
     name: {
         type: String,

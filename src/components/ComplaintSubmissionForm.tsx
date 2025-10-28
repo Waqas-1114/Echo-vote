@@ -34,6 +34,7 @@ const complaintCategories = [
     'Other'
 ] as const;
 
+// Main Complaint Submission Form Component
 export default function ComplaintSubmissionForm() {
     const [formData, setFormData] = useState({
         title: '',

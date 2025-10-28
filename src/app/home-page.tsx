@@ -129,7 +129,7 @@ export default function Home() {
                                 </p>
                             </CardContent>
                         </Card>
-
+                        {/* Hierarchical Escalation */}
                         <Card className="text-center">
                             <CardHeader>
                                 <GitBranch className="w-12 h-12 text-green-600 mx-auto mb-4" />

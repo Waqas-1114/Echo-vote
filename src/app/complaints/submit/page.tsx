@@ -1,5 +1,5 @@
 import ComplaintSubmissionForm from '@/components/ComplaintSubmissionForm';
-
+// No 'use client' directive needed here since this is a server component
 export default function SubmitComplaint() {
     return (
         <div className="min-h-screen bg-gray-50">

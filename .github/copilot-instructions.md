@@ -43,3 +43,4 @@ EchoVote is a transparent feedback democracy platform for Indian administrative 
 - Data sanitization for all inputs
 - Rate limiting for API endpoints
 - Proper session management
+- Use HTTPS for all communications

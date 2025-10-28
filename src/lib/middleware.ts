@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken, JWTPayload } from '@/lib/auth';
 import { UserType } from '@/models/interfaces';
-
+// Authenticated Request Interface
 export interface AuthenticatedRequest extends NextRequest {
     user?: JWTPayload;
 }

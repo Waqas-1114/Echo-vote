@@ -1,4 +1,4 @@
-// Indian States and Union Territories with their administrative structure
+// Indian States and Union Territories with their administrative data
 export const indianStates = [
     {
         name: "Andhra Pradesh",

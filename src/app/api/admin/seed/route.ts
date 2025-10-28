@@ -3,7 +3,7 @@ import { seedDatabase } from '@/scripts/seedDatabase';
 
 export async function POST(req: NextRequest) {
     try {
-        // In production, you might want to add authentication/authorization here
+        // In production, you might want to add authentication/authorization
         const { force } = await req.json();
 
         if (!force) {

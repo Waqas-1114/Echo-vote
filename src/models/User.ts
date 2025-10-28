@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { IUser, UserType, AdminLevel } from './interfaces';
-
+// Schema definition for User
 const userSchema = new Schema<IUser>({
     email: {
         type: String,

@@ -24,6 +24,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN npm run build
 
 # Production image, copy all the files and run next
+# https://nextjs.org/docs/advanced-features/output-file-tracing
 FROM base AS runner
 WORKDIR /app
 

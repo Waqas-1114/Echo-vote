@@ -6,7 +6,7 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
-
+// Metadata for the application
 export const metadata: Metadata = {
   title: "EchoVote - Transparent Feedback Democracy",
   description: "A civic platform where every feedback submission is publicly trackable, empowering citizens and building trust in government.",

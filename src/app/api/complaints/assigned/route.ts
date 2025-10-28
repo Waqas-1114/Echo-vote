@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
       .limit(10)
       .lean();
 
-    // Calculate statistics
+    // Calculate statistical data
     const allAssigned = await Complaint.find({ 'assignedTo.officers': decoded.userId }).lean();
     
     const stats = {

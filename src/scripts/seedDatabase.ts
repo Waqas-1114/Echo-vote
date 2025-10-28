@@ -2,7 +2,7 @@ import dbConnect from '@/lib/mongodb';
 import { AdministrativeDivision } from '@/models/AdministrativeDivision';
 import { getAllStatesAndUTs, commonDepartments } from '@/data/indian-administrative-data';
 import { AdminLevel } from '@/models/interfaces';
-
+// Seed the database with Indian administrative divisions and common departments
 export async function seedDatabase() {
     try {
         await dbConnect();

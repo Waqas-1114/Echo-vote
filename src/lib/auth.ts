@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { UserType } from '@/models/interfaces';
-
+// It's recommended to set JWT_SECRET in environment variables for security
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_change_in_production';
 
 export interface JWTPayload {
