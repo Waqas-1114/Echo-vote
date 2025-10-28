@@ -9,6 +9,7 @@
     "lint": "next lint",
     "seed": "node -r dotenv/config src/scripts/seedDatabase.ts dotenv_config_path=.env.local",
     "seed:tsx": "tsx --env-file=.env.local src/scripts/seedDatabase.ts",
+    "seed:officers": "npx tsx --env-file=.env.local src/scripts/seedOfficers.ts",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f",

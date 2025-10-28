@@ -311,7 +311,7 @@ export default function CitizenDashboard() {
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-4 sm:space-y-0">
                     <Link href="/complaints/submit">
-                        <Button className="flex items-center space-x-2">
+                        <Button className="flex items-center space-x-2 text-black">
                             <Plus className="w-4 h-4" />
                             <span>Submit New Complaint</span>
                         </Button>
@@ -329,17 +329,17 @@ export default function CitizenDashboard() {
                         </div>
 
                         <select
-                            className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
                             value={statusFilter}
                             onChange={(e) => setStatusFilter(e.target.value)}
                         >
-                            <option value="all">All Status</option>
-                            <option value={ComplaintStatus.SUBMITTED}>Submitted</option>
-                            <option value={ComplaintStatus.ACKNOWLEDGED}>Acknowledged</option>
-                            <option value={ComplaintStatus.IN_PROGRESS}>In Progress</option>
-                            <option value={ComplaintStatus.RESOLVED}>Resolved</option>
-                            <option value={ComplaintStatus.REJECTED}>Rejected</option>
-                            <option value={ComplaintStatus.ESCALATED}>Escalated</option>
+                            <option value="all" className="text-black">All Status</option>
+                            <option value={ComplaintStatus.SUBMITTED} className="text-black">Submitted</option>
+                            <option value={ComplaintStatus.ACKNOWLEDGED} className="text-black">Acknowledged</option>
+                            <option value={ComplaintStatus.IN_PROGRESS} className="text-black">In Progress</option>
+                            <option value={ComplaintStatus.RESOLVED} className="text-black">Resolved</option>
+                            <option value={ComplaintStatus.REJECTED} className="text-black">Rejected</option>
+                            <option value={ComplaintStatus.ESCALATED} className="text-black">Escalated</option>
                         </select>
                     </div>
                 </div>

@@ -541,21 +541,21 @@ export default function ComplaintDetail({ complaintId }: ComplaintDetailProps) {
                         <div className="space-y-3 text-sm">
                             <div>
                                 <span className="text-gray-500">Category:</span>
-                                <p className="font-medium">{complaint.category}</p>
+                                <p className="font-medium text-black">{complaint.category}</p>
                             </div>
                             {complaint.subcategory && (
                                 <div>
                                     <span className="text-gray-500">Subcategory:</span>
-                                    <p className="font-medium">{complaint.subcategory}</p>
+                                    <p className="font-medium text-black">{complaint.subcategory}</p>
                                 </div>
                             )}
                             <div>
                                 <span className="text-gray-500">Department:</span>
-                                <p className="font-medium">{complaint.assignedTo.department}</p>
+                                <p className="font-medium text-black">{complaint.assignedTo.department}</p>
                             </div>
                             <div>
                                 <span className="text-gray-500">Submitted:</span>
-                                <p className="font-medium">{new Date(complaint.createdAt).toLocaleDateString()}</p>
+                                <p className="font-medium text-black">{new Date(complaint.createdAt).toLocaleDateString()}</p>
                             </div>
                         </div>
                     </Card>
@@ -564,16 +564,16 @@ export default function ComplaintDetail({ complaintId }: ComplaintDetailProps) {
                     <Card className="p-6">
                         <h3 className="font-semibold text-gray-900 mb-4">Location</h3>
                         <div className="space-y-2 text-sm">
-                            <p><span className="text-gray-500">State:</span> {complaint.location.state}</p>
-                            <p><span className="text-gray-500">District:</span> {complaint.location.district}</p>
+                            <p className="text-black"><span className="text-gray-500">State:</span> {complaint.location.state}</p>
+                            <p className="text-black"><span className="text-gray-500">District:</span> {complaint.location.district}</p>
                             {complaint.location.subDivision && (
-                                <p><span className="text-gray-500">Sub-division:</span> {complaint.location.subDivision}</p>
+                                <p className="text-black"><span className="text-gray-500">Sub-division:</span> {complaint.location.subDivision}</p>
                             )}
                             {complaint.location.block && (
-                                <p><span className="text-gray-500">Block:</span> {complaint.location.block}</p>
+                                <p className="text-black"><span className="text-gray-500">Block:</span> {complaint.location.block}</p>
                             )}
                             {complaint.location.address && (
-                                <p><span className="text-gray-500">Address:</span> {complaint.location.address}</p>
+                                <p className="text-black"><span className="text-gray-500">Address:</span> {complaint.location.address}</p>
                             )}
                         </div>
                     </Card>
@@ -582,14 +582,14 @@ export default function ComplaintDetail({ complaintId }: ComplaintDetailProps) {
                     <Card className="p-6">
                         <h3 className="font-semibold text-gray-900 mb-4">Assigned Authority</h3>
                         <div className="space-y-2 text-sm">
-                            <p><span className="text-gray-500">Division:</span> {complaint.assignedTo.division.name}</p>
-                            <p><span className="text-gray-500">Level:</span> {complaint.assignedTo.division.level.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}</p>
+                            <p className="text-black"><span className="text-gray-500">Division:</span> {complaint.assignedTo.division.name}</p>
+                            <p className="text-black"><span className="text-gray-500">Level:</span> {complaint.assignedTo.division.level.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}</p>
 
                             {complaint.assignedTo.officers && complaint.assignedTo.officers.length > 0 && (
                                 <div>
                                     <span className="text-gray-500">Assigned Officers:</span>
                                     {complaint.assignedTo.officers.map((officer, index) => (
-                                        <p key={index} className="font-medium">
+                                        <p key={index} className="font-medium text-black">
                                             {officer.profile.name} - {officer.governmentDetails.designation}
                                         </p>
                                     ))}

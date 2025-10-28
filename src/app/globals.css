@@ -25,6 +25,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Headings text color - ensure visibility */
+h1, h2, h3, h4, h5, h6 {
+  color: #000000; /* black */
+}
+
 /* Form elements text color - ensure visibility on all backgrounds */
 input,
 textarea,

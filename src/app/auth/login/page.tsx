@@ -69,10 +69,10 @@ function LoginForm() {
                     <p className="text-gray-600 mt-2">Sign in to your account to continue</p>
                 </div>
 
-                <Card>
+                <Card className="bg-gray-900 border-gray-800">
                     <CardHeader>
-                        <CardTitle>Login</CardTitle>
-                        <CardDescription>
+                        <CardTitle className="text-white">Login</CardTitle>
+                        <CardDescription className="text-gray-300">
                             Enter your email and password to access your account
                         </CardDescription>
                     </CardHeader>
@@ -85,7 +85,7 @@ function LoginForm() {
                             )}
 
                             <div className="space-y-2">
-                                <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                                <label htmlFor="email" className="text-sm font-medium text-white">
                                     Email Address
                                 </label>
                                 <div className="relative">
@@ -94,7 +94,7 @@ function LoginForm() {
                                         id="email"
                                         type="email"
                                         placeholder="Enter your email"
-                                        className="pl-10"
+                                        className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         required
@@ -103,7 +103,7 @@ function LoginForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <label htmlFor="password" className="text-sm font-medium text-gray-700">
+                                <label htmlFor="password" className="text-sm font-medium text-white">
                                     Password
                                 </label>
                                 <div className="relative">
@@ -112,14 +112,14 @@ function LoginForm() {
                                         id="password"
                                         type={showPassword ? "text" : "password"}
                                         placeholder="Enter your password"
-                                        className="pl-10 pr-10"
+                                        className="pl-10 pr-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                         value={formData.password}
                                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                         required
                                     />
                                     <button
                                         type="button"
-                                        className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                                        className="absolute right-3 top-3 text-gray-400 hover:text-gray-300"
                                         onClick={() => setShowPassword(!showPassword)}
                                     >
                                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -127,22 +127,22 @@ function LoginForm() {
                                 </div>
                             </div>
 
-                            <Button type="submit" className="w-full" disabled={loading}>
+                            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={loading}>
                                 {loading ? 'Signing In...' : 'Sign In'}
                             </Button>
                         </form>
 
                         <div className="mt-6 text-center">
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-300">
                                 Don't have an account?{' '}
-                                <Link href="/auth/register" className="font-medium text-blue-600 hover:text-blue-500">
+                                <Link href="/auth/register" className="font-medium text-blue-400 hover:text-blue-300">
                                     Sign up
                                 </Link>
                             </p>
                         </div>
 
                         <div className="mt-4 text-center">
-                            <Link href="/complaints" className="text-sm text-blue-600 hover:text-blue-500">
+                            <Link href="/complaints" className="text-sm text-blue-400 hover:text-blue-300">
                                 Browse public complaints without signing in
                             </Link>
                         </div>

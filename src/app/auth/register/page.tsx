@@ -179,10 +179,10 @@ function RegisterForm() {
                     </div>
                 </div>
 
-                <Card>
+                <Card className="bg-gray-900 border-gray-800">
                     <CardHeader>
-                        <CardTitle>Create Account</CardTitle>
-                        <CardDescription>
+                        <CardTitle className="text-white">Create Account</CardTitle>
+                        <CardDescription className="text-gray-300">
                             {formData.userType === UserType.GOVERNMENT_OFFICER
                                 ? 'Your account will need verification by administrators before activation'
                                 : 'Fill in your details to get started'
@@ -199,11 +199,11 @@ function RegisterForm() {
 
                             {/* Basic Information */}
                             <div className="space-y-4">
-                                <h3 className="font-medium text-gray-900">Basic Information</h3>
+                                <h3 className="font-medium text-white">Basic Information</h3>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                                        <label htmlFor="email" className="text-sm font-medium text-white">
                                             Email Address *
                                         </label>
                                         <div className="relative">
@@ -212,7 +212,7 @@ function RegisterForm() {
                                                 id="email"
                                                 type="email"
                                                 placeholder="your.email@example.com"
-                                                className="pl-10"
+                                                className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                                 value={formData.email}
                                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                 required
@@ -221,7 +221,7 @@ function RegisterForm() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="name" className="text-sm font-medium text-gray-700">
+                                        <label htmlFor="name" className="text-sm font-medium text-white">
                                             Full Name {formData.userType === UserType.GOVERNMENT_OFFICER ? '*' : '(Optional)'}
                                         </label>
                                         <div className="relative">
@@ -230,7 +230,7 @@ function RegisterForm() {
                                                 id="name"
                                                 type="text"
                                                 placeholder="Enter your full name"
-                                                className="pl-10"
+                                                className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                                 value={formData.profile.name}
                                                 onChange={(e) => setFormData({
                                                     ...formData,
@@ -244,7 +244,7 @@ function RegisterForm() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <label htmlFor="password" className="text-sm font-medium text-gray-700">
+                                        <label htmlFor="password" className="text-sm font-medium text-white">
                                             Password *
                                         </label>
                                         <div className="relative">
@@ -253,14 +253,14 @@ function RegisterForm() {
                                                 id="password"
                                                 type={showPassword ? "text" : "password"}
                                                 placeholder="Create a password"
-                                                className="pl-10 pr-10"
+                                                className="pl-10 pr-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                                 value={formData.password}
                                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                                 required
                                             />
                                             <button
                                                 type="button"
-                                                className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                                                className="absolute right-3 top-3 text-gray-400 hover:text-gray-300"
                                                 onClick={() => setShowPassword(!showPassword)}
                                             >
                                                 {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -269,7 +269,7 @@ function RegisterForm() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+                                        <label htmlFor="confirmPassword" className="text-sm font-medium text-white">
                                             Confirm Password *
                                         </label>
                                         <div className="relative">
@@ -278,7 +278,7 @@ function RegisterForm() {
                                                 id="confirmPassword"
                                                 type="password"
                                                 placeholder="Confirm your password"
-                                                className="pl-10"
+                                                className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                                 value={formData.confirmPassword}
                                                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                                                 required
@@ -288,7 +288,7 @@ function RegisterForm() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label htmlFor="phone" className="text-sm font-medium text-gray-700">
+                                    <label htmlFor="phone" className="text-sm font-medium text-white">
                                         Phone Number (Optional)
                                     </label>
                                     <div className="relative">
@@ -297,7 +297,7 @@ function RegisterForm() {
                                             id="phone"
                                             type="tel"
                                             placeholder="+91 9876543210"
-                                            className="pl-10"
+                                            className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                             value={formData.profile.phone}
                                             onChange={(e) => setFormData({
                                                 ...formData,
@@ -310,23 +310,23 @@ function RegisterForm() {
 
                             {/* Location Information */}
                             <div className="space-y-4">
-                                <h3 className="font-medium text-gray-900">Location</h3>
+                                <h3 className="font-medium text-white">Location</h3>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <label htmlFor="state" className="text-sm font-medium text-gray-700">
+                                        <label htmlFor="state" className="text-sm font-medium text-white">
                                             State *
                                         </label>
                                         <select
                                             id="state"
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-800 border-gray-700 text-white"
                                             value={formData.profile.address.state}
                                             onChange={(e) => handleStateChange(e.target.value)}
                                             required
                                         >
-                                            <option value="">Select State</option>
+                                            <option value="" className="bg-gray-800 text-white">Select State</option>
                                             {statesAndUTs.map((state) => (
-                                                <option key={state.code} value={state.name}>
+                                                <option key={state.code} value={state.name} className="bg-gray-800 text-white">
                                                     {state.name}
                                                 </option>
                                             ))}
@@ -334,12 +334,12 @@ function RegisterForm() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="district" className="text-sm font-medium text-gray-700">
+                                        <label htmlFor="district" className="text-sm font-medium text-white">
                                             District *
                                         </label>
                                         <select
                                             id="district"
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-800 border-gray-700 text-white"
                                             value={formData.profile.address.district}
                                             onChange={(e) => setFormData({
                                                 ...formData,
@@ -351,15 +351,15 @@ function RegisterForm() {
                                             required
                                             disabled={!formData.profile.address.state || availableDistricts.length === 0}
                                         >
-                                            <option value="">Select District</option>
+                                            <option value="" className="bg-gray-800 text-white">Select District</option>
                                             {availableDistricts.map((district) => (
-                                                <option key={district} value={district}>
+                                                <option key={district} value={district} className="bg-gray-800 text-white">
                                                     {district}
                                                 </option>
                                             ))}
                                         </select>
                                         {formData.profile.address.state && availableDistricts.length === 0 && (
-                                            <p className="text-sm text-gray-500">No districts available for selected state</p>
+                                            <p className="text-sm text-gray-400">No districts available for selected state</p>
                                         )}
                                     </div>
                                 </div>
@@ -368,17 +368,18 @@ function RegisterForm() {
                             {/* Government Officer Details */}
                             {formData.userType === UserType.GOVERNMENT_OFFICER && (
                                 <div className="space-y-4">
-                                    <h3 className="font-medium text-gray-900">Government Officer Details</h3>
+                                    <h3 className="font-medium text-white">Government Officer Details</h3>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <label htmlFor="employeeId" className="text-sm font-medium text-gray-700">
+                                            <label htmlFor="employeeId" className="text-sm font-medium text-white">
                                                 Employee ID *
                                             </label>
                                             <Input
                                                 id="employeeId"
                                                 type="text"
                                                 placeholder="Enter your employee ID"
+                                                className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                                 value={formData.governmentDetails.employeeId}
                                                 onChange={(e) => setFormData({
                                                     ...formData,
@@ -389,13 +390,14 @@ function RegisterForm() {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label htmlFor="department" className="text-sm font-medium text-gray-700">
+                                            <label htmlFor="department" className="text-sm font-medium text-white">
                                                 Department *
                                             </label>
                                             <Input
                                                 id="department"
                                                 type="text"
                                                 placeholder="e.g., Public Works Department"
+                                                className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                                 value={formData.governmentDetails.department}
                                                 onChange={(e) => setFormData({
                                                     ...formData,
@@ -407,13 +409,14 @@ function RegisterForm() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="designation" className="text-sm font-medium text-gray-700">
+                                        <label htmlFor="designation" className="text-sm font-medium text-white">
                                             Designation *
                                         </label>
                                         <Input
                                             id="designation"
                                             type="text"
                                             placeholder="e.g., Assistant Engineer"
+                                            className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                                             value={formData.governmentDetails.designation}
                                             onChange={(e) => setFormData({
                                                 ...formData,
@@ -438,21 +441,21 @@ function RegisterForm() {
                                             profile: { ...formData.profile, isAnonymous: e.target.checked }
                                         })}
                                     />
-                                    <label htmlFor="anonymous" className="text-sm text-gray-600">
+                                    <label htmlFor="anonymous" className="text-sm text-gray-300">
                                         I want to remain anonymous when submitting complaints (you can still track them privately)
                                     </label>
                                 </div>
                             )}
 
-                            <Button type="submit" className="w-full" disabled={loading}>
+                            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={loading}>
                                 {loading ? 'Creating Account...' : 'Create Account'}
                             </Button>
                         </form>
 
                         <div className="mt-6 text-center">
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-300">
                                 Already have an account?{' '}
-                                <Link href="/auth/login" className="font-medium text-blue-600 hover:text-blue-500">
+                                <Link href="/auth/login" className="font-medium text-blue-400 hover:text-blue-300">
                                     Sign in
                                 </Link>
                             </p>

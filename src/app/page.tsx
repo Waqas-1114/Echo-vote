@@ -31,10 +31,10 @@ export default function Home() {
           </nav>
           <div className="flex space-x-2">
             <Link href="/auth/login">
-              <Button variant="ghost">Login</Button>
+              <Button variant="ghost" className="text-black">Login</Button>
             </Link>
             <Link href="/auth/register">
-              <Button>Get Started</Button>
+              <Button className="bg-black text-white hover:bg-gray-800">Get Started</Button>
             </Link>
           </div>
         </div>
@@ -55,7 +55,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth/register">
-              <Button size="lg" className="min-w-[200px]">
+              <Button size="lg" className="min-w-[200px] text-black">
                 Submit Your First Issue <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
