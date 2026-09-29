@@ -9,7 +9,7 @@ component with access to Supabase (Postgres and Storage). See the
 ```bash
 cp .env.example .env     # SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, JWT_SECRET, PORT
 npm install
-npm run dev              # node --watch, http://localhost:4000
+npm run dev              # node --watch, http://localhost:4000 ehehe
 ```
 
 | Script | What it does |
